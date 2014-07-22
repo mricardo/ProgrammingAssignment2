@@ -1,15 +1,41 @@
-## Put comments here that give an overall description of what your
-## functions do
-
-## Write a short comment describing this function
+## makeCacheMatrix(x) an optional matrix definition
+## Purpose: a constructor of "cached" matrices
+## Usage example:
+## 1) m <- makeCacheMatrix() to instantiate an empty matrix 
+## or 
+## 2) m <- makeCacheMatrix(matrix(...))) to instatiate with a pre-defined matrix
+## 
+## For either the 1) or 2) case you can always (re-)define the cached matrix by using the "set" method:
+## m$set(matrix(...))
 
 makeCacheMatrix <- function(x = matrix()) {
-
+  i <- NULL
+  set <- function(y) {
+    x <<- y
+    i <<- NULL
+  }
+  get <- function() x
+  setinverse <- function(inverse) i <<- inverse
+  getinverse <- function() i
+  list(set = set, get = get,
+       setinverse = setinverse,
+       getinverse = getinverse)
 }
 
 
-## Write a short comment describing this function
+## cacheSolve(x, ...) where x is a "cached" matrix and "..." are additional arguments that can be passed to the "solve" method.
+## Purpose: a solver of "cached" matrices. The first time its called it solves the inverse of the matrix, in subsequent calls a cached result is returned.
+## Usage example:
+## result <- cacheSolve(m) where m is "cached" matrix instatiated with the method "makeCacheMatrix"
 
 cacheSolve <- function(x, ...) {
-        ## Return a matrix that is the inverse of 'x'
+  i <- x$getinverse()
+  if(!is.null(i)) {
+    message("getting cached data")
+    return(i)
+  }
+  data <- x$get()
+  i <- solve(data, ...)
+  x$setinverse(i)
+  i
 }
