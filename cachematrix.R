@@ -1,5 +1,7 @@
-## makeCacheMatrix(x) an optional matrix definition
+## makeCacheMatrix(x)
 ## Purpose: a constructor of "cached" matrices
+## Parameters: x is an optional matrix definition
+## Output: "cached" matrix
 ## Usage example:
 ## 1) m <- makeCacheMatrix() to instantiate an empty matrix 
 ## or 
@@ -23,8 +25,10 @@ makeCacheMatrix <- function(x = matrix()) {
 }
 
 
-## cacheSolve(x, ...) where x is a "cached" matrix and "..." are additional arguments that can be passed to the "solve" method.
+## cacheSolve(x, ...)
 ## Purpose: a solver of "cached" matrices. The first time its called it solves the inverse of the matrix, in subsequent calls a cached result is returned.
+## Parameters:  x is a "cached" matrix and "..." are additional arguments that can be passed to the "solve" method.
+## Output: inverse of a matrix
 ## Usage example:
 ## result <- cacheSolve(m) where m is "cached" matrix instatiated with the method "makeCacheMatrix"
 
